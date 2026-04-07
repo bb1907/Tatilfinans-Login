@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Calendar as CalendarIcon, CreditCard, Landmark, PiggyBank, CheckCircle2, ChevronRight, Lock, CalendarDays } from 'lucide-react';
+import { Calendar as CalendarIcon, CreditCard, Landmark, Wallet, CheckCircle2, ChevronRight, Lock, CalendarDays } from 'lucide-react';
 import { motion } from 'motion/react';
 
 export default function Payment({ onSelectCalendar }: { onSelectCalendar: () => void }) {
@@ -118,7 +118,7 @@ export default function Payment({ onSelectCalendar }: { onSelectCalendar: () => 
           />
           <PaymentOption 
             id="bnlp"
-            icon={<PiggyBank size={24} />}
+            icon={<Wallet size={24} />}
             title="BNLP"
             description="Biriktir Sonra Git - En esnek seçenek"
             active={method === 'bnlp'}
@@ -133,10 +133,16 @@ export default function Payment({ onSelectCalendar }: { onSelectCalendar: () => 
           <Lock size={14} className="text-green-600" fill="currentColor" />
           <span className="text-[10px] font-black text-green-700 uppercase tracking-widest">256-bit SSL ile Güvenli Ödeme</span>
         </div>
-        <div className="flex items-center gap-8 opacity-30 grayscale">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa" className="h-4" />
-          <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard" className="h-6" />
-          <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/American_Express_logo_%282018%29.svg" alt="Amex" className="h-6" />
+        <div className="flex items-center justify-center gap-8 opacity-40 grayscale h-10">
+          <div className="h-full flex items-center">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa" className="h-4 w-auto object-contain" />
+          </div>
+          <div className="h-full flex items-center">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard" className="h-6 w-auto object-contain" />
+          </div>
+          <div className="h-full flex items-center">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/American_Express_logo_%282018%29.svg" alt="Amex" className="h-6 w-auto object-contain" />
+          </div>
         </div>
       </div>
 
@@ -166,33 +172,56 @@ interface PaymentOptionProps {
 
 function PaymentOption({ icon, title, description, popular, active, onClick }: PaymentOptionProps) {
   return (
-    <button 
+    <motion.button 
+      whileHover={{ scale: 1.01 }}
+      whileTap={{ scale: 0.98 }}
       onClick={onClick}
-      className={`flex items-center gap-4 p-5 rounded-3xl text-left transition-all border-2 ${
+      className={`flex items-center gap-4 p-5 rounded-3xl text-left transition-all duration-300 border-2 relative overflow-hidden ${
         active 
-          ? 'bg-white border-primary shadow-lg ring-4 ring-primary/5' 
-          : 'bg-slate-50 border-transparent hover:bg-slate-100'
+          ? 'bg-white border-primary shadow-[0_10px_30px_rgba(0,100,124,0.15)] ring-4 ring-primary/5' 
+          : 'bg-slate-50 border-transparent hover:bg-slate-100 hover:border-slate-200'
       }`}
     >
-      <div className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-colors ${
-        active ? 'bg-primary text-white' : 'bg-slate-200 text-slate-500'
+      {active && (
+        <motion.div 
+          layoutId="active-glow"
+          className="absolute inset-0 bg-primary/5 pointer-events-none"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+        />
+      )}
+      
+      <div className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-300 ${
+        active ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'bg-slate-200 text-slate-500'
       }`}>
         {icon}
       </div>
-      <div className="flex-1">
+      
+      <div className="flex-1 relative z-10">
         <div className="flex justify-between items-center">
-          <span className={`font-black text-sm uppercase tracking-wide ${active ? 'text-slate-800' : 'text-slate-500'}`}>{title}</span>
+          <span className={`font-black text-sm uppercase tracking-wide transition-colors duration-300 ${active ? 'text-slate-800' : 'text-slate-500'}`}>{title}</span>
           {popular && (
-            <span className="text-[8px] bg-primary/10 text-primary px-2 py-0.5 rounded font-black tracking-widest">POPÜLER</span>
+            <span className={`text-[8px] px-2 py-0.5 rounded font-black tracking-widest transition-colors duration-300 ${
+              active ? 'bg-primary text-white' : 'bg-primary/10 text-primary'
+            }`}>POPÜLER</span>
           )}
         </div>
-        <p className="text-[11px] text-slate-400 font-bold mt-0.5">{description}</p>
+        <p className={`text-[11px] font-bold mt-0.5 transition-colors duration-300 ${active ? 'text-slate-500' : 'text-slate-400'}`}>{description}</p>
       </div>
-      {active ? (
-        <CheckCircle2 size={20} className="text-primary" fill="currentColor" />
-      ) : (
-        <ChevronRight size={20} className="text-slate-300" />
-      )}
-    </button>
+      
+      <div className="relative z-10">
+        {active ? (
+          <motion.div
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+          >
+            <CheckCircle2 size={24} className="text-primary" fill="currentColor" />
+          </motion.div>
+        ) : (
+          <ChevronRight size={20} className="text-slate-300" />
+        )}
+      </div>
+    </motion.button>
   );
 }

@@ -10,7 +10,8 @@ import {
   Bell,
   Menu,
   ArrowLeft,
-  MoreVertical
+  MoreVertical,
+  Home as HomeIcon
 } from 'lucide-react';
 import { motion } from 'motion/react';
 
@@ -37,7 +38,7 @@ export default function Layout({
     <div className="flex flex-col min-h-screen max-w-[430px] mx-auto bg-background shadow-2xl relative overflow-hidden">
       {/* Top App Bar */}
       {showTopBar && (
-        <header className="fixed top-0 w-full max-w-[430px] z-50 glass-effect border-b border-slate-100 flex justify-between items-center px-6 py-4">
+        <header className="fixed top-0 w-full max-w-[430px] z-50 glass-effect border-b border-slate-100 flex justify-between items-center px-6 h-16">
           <div className="flex items-center gap-3">
             {onBack ? (
               <button onClick={onBack} className="text-primary active:scale-95 transition-transform">
@@ -73,7 +74,7 @@ export default function Layout({
       )}
 
       {/* Main Content */}
-      <main className={`flex-1 ${showTopBar ? 'pt-20' : ''} ${showNav ? 'pb-24' : 'pb-8'}`}>
+      <main className={`flex-1 ${showTopBar ? 'pt-16' : ''} ${showNav ? 'pb-24' : 'pb-8'}`}>
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -88,28 +89,28 @@ export default function Layout({
         <nav className="fixed bottom-0 w-full max-w-[430px] z-50 glass-effect border-t border-slate-100 rounded-t-3xl shadow-[0_-4px_20px_rgba(0,0,0,0.05)]">
           <div className="flex justify-around items-center px-4 pb-6 pt-3">
             <NavItem 
-              icon={<Search size={24} />} 
-              label="Explore" 
-              active={activeTab === 'explore'} 
-              onClick={() => setActiveTab('explore')} 
-            />
-            <NavItem 
-              icon={<Sparkles size={24} />} 
-              label="AI Assistant" 
-              active={activeTab === 'chat'} 
-              onClick={() => setActiveTab('chat')} 
-            />
-            <NavItem 
-              icon={<Luggage size={24} />} 
-              label="Trips" 
+              icon={<HomeIcon size={24} />} 
+              label="Ana Sayfa" 
               active={activeTab === 'trips'} 
               onClick={() => setActiveTab('trips')} 
             />
             <NavItem 
+              icon={<Compass size={24} />} 
+              label="Keşfet" 
+              active={activeTab === 'explore'} 
+              onClick={() => setActiveTab('explore')} 
+            />
+            <NavItem 
               icon={<Wallet size={24} />} 
-              label="Wallet" 
+              label="Cüzdan" 
               active={activeTab === 'wallet'} 
               onClick={() => setActiveTab('wallet')} 
+            />
+            <NavItem 
+              icon={<User size={24} />} 
+              label="Profil" 
+              active={activeTab === 'profile'} 
+              onClick={() => setActiveTab('profile')} 
             />
           </div>
         </nav>
@@ -124,14 +125,15 @@ function NavItem({ icon, label, active, onClick }: { icon: React.ReactNode, labe
       onClick={onClick}
       className={`flex flex-col items-center justify-center px-4 py-2 rounded-2xl transition-all duration-300 ${
         active 
-          ? 'bg-primary/10 text-primary' 
-          : 'text-slate-400 hover:text-primary/70'
+          ? 'bg-cyan-50 text-cyan-700' 
+          : 'text-slate-400 hover:text-cyan-600'
       }`}
     >
-      <div className={`${active ? 'fill-primary' : ''}`}>
+      <div className={`${active ? 'fill-cyan-700' : ''}`}>
         {icon}
       </div>
-      <span className="text-[10px] font-bold uppercase tracking-wider mt-1">{label}</span>
+      <span className="text-[9px] font-bold uppercase tracking-wider mt-1">{label}</span>
     </button>
   );
 }
+

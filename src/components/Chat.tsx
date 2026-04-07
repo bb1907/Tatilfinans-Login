@@ -4,11 +4,11 @@ import { motion } from 'motion/react';
 
 export default function Chat({ onSelect }: { onSelect: () => void }) {
   return (
-    <div className="flex flex-col min-h-screen">
-      <div className="flex-1 px-4 py-6 space-y-8 pb-40">
+    <div className="flex flex-col min-h-screen relative">
+      <div className="flex-1 px-4 py-6 space-y-8 pb-48 max-w-4xl mx-auto w-full">
         {/* User Message */}
         <div className="flex justify-end">
-          <div className="max-w-[85%] bg-primary text-white rounded-3xl rounded-br-lg px-6 py-4 shadow-lg shadow-primary/10">
+          <div className="max-w-[85%] md:max-w-[70%] bg-primary text-white rounded-3xl rounded-br-lg px-6 py-4 shadow-lg shadow-primary/10">
             <p className="text-[15px] leading-relaxed font-medium">
               Selam! Hem kültürel hem de dinlendirici, vizesiz bir tatil arıyorum. Bütçemi esnek taksitlerle ödeyebilir miyim?
             </p>
@@ -20,7 +20,7 @@ export default function Chat({ onSelect }: { onSelect: () => void }) {
           <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shadow-sm shrink-0">
             <Sparkles size={20} className="text-primary" fill="currentColor" />
           </div>
-          <div className="flex flex-col gap-4 max-w-[90%]">
+          <div className="flex flex-col gap-4 max-w-[90%] md:max-w-[75%]">
             <div className="bg-white text-slate-800 rounded-3xl rounded-tl-lg px-6 py-4 shadow-sm border border-slate-100">
               <p className="text-[15px] leading-relaxed">
                 Harika bir fikir! TatilFinans ile hayalindeki rotayı şimdi planlayıp, ödemelerini seyahat sonrasına yayabilirsin. İşte senin için seçtiğim özel rota:
@@ -33,9 +33,9 @@ export default function Chat({ onSelect }: { onSelect: () => void }) {
               animate={{ opacity: 1, scale: 1 }}
               className="overflow-hidden rounded-[2.5rem] bg-white shadow-xl border border-slate-100 group"
             >
-              <div className="relative h-56 w-full overflow-hidden">
+              <div className="relative h-56 md:h-72 w-full overflow-hidden">
                 <img 
-                  src="https://images.unsplash.com/photo-1559628233-eb1b1a45564b?w=800&q=80" 
+                  src="https://images.unsplash.com/photo-1559628233-eb1b1a45564b?w=1200&q=80" 
                   alt="Bali" 
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   referrerPolicy="no-referrer"
@@ -66,7 +66,7 @@ export default function Chat({ onSelect }: { onSelect: () => void }) {
                   </div>
                   <button 
                     onClick={onSelect}
-                    className="bg-primary text-white px-5 py-2.5 rounded-full font-bold text-sm hover:opacity-90 active:scale-95 transition-all shadow-lg shadow-primary/20"
+                    className="bg-primary text-white px-5 py-2.5 rounded-full font-bold text-sm hover:opacity-90 active:scale-95 transition-all shadow-lg shadow-primary/20 cursor-pointer"
                   >
                     Rezerve Et
                   </button>
@@ -84,17 +84,17 @@ export default function Chat({ onSelect }: { onSelect: () => void }) {
       </div>
 
       {/* Input Area */}
-      <div className="fixed bottom-24 w-full max-w-[430px] px-4 space-y-4">
+      <div className="fixed bottom-24 md:bottom-12 left-1/2 -translate-x-1/2 w-full max-w-4xl px-4 space-y-4 z-50">
         <div className="flex gap-2 overflow-x-auto no-scrollbar py-2">
           {['Aile Tatili', 'Vizesiz Rotalar', 'Bütçe Dostu', 'Kış Rotaları'].map((tag) => (
-            <button key={tag} className="whitespace-nowrap px-5 py-2.5 rounded-full bg-white border border-slate-100 text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors shadow-sm">
+            <button key={tag} className="whitespace-nowrap px-5 py-2.5 rounded-full bg-white border border-slate-100 text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors shadow-sm cursor-pointer">
               {tag}
             </button>
           ))}
         </div>
 
         <div className="bg-white rounded-[2.5rem] shadow-2xl p-2 border border-slate-100 flex items-center gap-2">
-          <button className="w-12 h-12 rounded-full flex items-center justify-center text-slate-400 hover:text-primary transition-colors">
+          <button className="w-12 h-12 rounded-full flex items-center justify-center text-slate-400 hover:text-primary transition-colors cursor-pointer">
             <PlusCircle size={24} />
           </button>
           <input 
@@ -102,7 +102,7 @@ export default function Chat({ onSelect }: { onSelect: () => void }) {
             placeholder="Hayalindeki tatili anlat..."
             className="flex-1 border-none focus:ring-0 bg-transparent text-slate-800 placeholder:text-slate-400 font-medium py-3"
           />
-          <button className="w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center shadow-lg shadow-primary/30 active:scale-90 transition-transform">
+          <button className="w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center shadow-lg shadow-primary/30 active:scale-90 transition-transform cursor-pointer">
             <Send size={20} />
           </button>
         </div>

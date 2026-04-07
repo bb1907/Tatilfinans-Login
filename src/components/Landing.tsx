@@ -1,26 +1,26 @@
 import React from 'react';
-import { ArrowRight, Wallet } from 'lucide-react';
+import { ArrowRight, Wallet, Compass } from 'lucide-react';
 import { motion } from 'motion/react';
 
 export default function Landing({ onStart, onLogin }: { onStart: () => void, onLogin: () => void }) {
   return (
-    <div className="flex flex-col min-h-screen bg-white overflow-hidden">
+    <div className="flex flex-col md:flex-row min-h-screen bg-white overflow-hidden">
       {/* Hero Image Section */}
-      <section className="relative h-[45vh] w-full">
+      <section className="relative h-[45vh] md:h-screen w-full md:w-1/2">
         <img 
-          src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80" 
+          src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&q=80" 
           alt="People planning" 
           className="w-full h-full object-cover"
           referrerPolicy="no-referrer"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-white"></div>
+        <div className="absolute inset-0 bg-gradient-to-b md:bg-gradient-to-r from-black/20 to-white md:to-transparent"></div>
         
         {/* Floating Card */}
         <motion.div 
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.6 }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[85%] bg-white/90 backdrop-blur-md rounded-[2.5rem] p-8 shadow-2xl border border-white/50 z-20"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[85%] md:w-[70%] bg-white/90 backdrop-blur-md rounded-[2.5rem] p-8 shadow-2xl border border-white/50 z-20"
         >
           <div className="flex items-center gap-4 mb-6">
             <div className="w-12 h-12 rounded-2xl bg-primary flex items-center justify-center text-white shadow-lg shadow-primary/20">
@@ -48,67 +48,68 @@ export default function Landing({ onStart, onLogin }: { onStart: () => void, onL
           </div>
         </motion.div>
 
-        {/* Logo Overlay */}
-        <div className="absolute top-10 right-8 z-10">
+        {/* Logo Overlay (Mobile only) */}
+        <div className="absolute top-10 right-8 z-10 md:hidden">
           <h1 className="text-2xl font-black text-primary font-headline tracking-tight">Tatilfinans</h1>
         </div>
       </section>
 
-      {/* Carousel Indicators */}
-      <div className="flex justify-center gap-2 mt-4">
-        <div className="w-8 h-1.5 bg-primary rounded-full"></div>
-        <div className="w-3 h-1.5 bg-slate-200 rounded-full"></div>
-        <div className="w-3 h-1.5 bg-slate-200 rounded-full"></div>
-      </div>
-
-      {/* Text Content */}
-      <section className="px-8 pt-10 space-y-6 flex-1">
-        <div className="space-y-4">
-          <h2 className="text-5xl font-black text-slate-900 font-headline leading-[1.1] tracking-tight">
-            Planla,<br />
-            Biriktir,<br />
-            Keşfet.
-          </h2>
-          <p className="text-slate-500 font-medium leading-relaxed text-lg">
-            Hayalindeki tatile borçlanmadan, arkadaşlarınla birlikte biriktirerek ulaş. Gelecek yazın bütçesi bugünden hazır.
-          </p>
-        </div>
-      </section>
-
-      {/* Buttons Section */}
-      <section className="px-8 pb-12 space-y-4">
-        <button 
-          onClick={onStart}
-          className="w-full h-16 bg-primary text-white rounded-2xl font-black flex items-center justify-center gap-3 shadow-xl shadow-primary/20 active:scale-95 transition-all text-lg"
-        >
-          Başlayalım
-          <ArrowRight size={20} />
-        </button>
-        <button 
-          onClick={onLogin}
-          className="w-full h-16 bg-slate-50 text-slate-800 rounded-2xl font-black active:scale-95 transition-all text-lg"
-        >
-          Zaten Üyeyim
-        </button>
-
-        {/* Social Proof */}
-        <div className="flex items-center justify-center gap-3 pt-6">
-          <div className="flex -space-x-3">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="w-10 h-10 rounded-full border-2 border-white overflow-hidden bg-slate-200">
-                <img 
-                  src={`https://i.pravatar.cc/100?img=${i + 10}`} 
-                  alt="User" 
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            ))}
+      {/* Content Section */}
+      <div className="flex-1 flex flex-col justify-center px-8 md:px-16 lg:px-24 py-12 md:py-0 bg-white relative">
+        <div className="max-w-xl">
+          <div className="flex items-center gap-3 mb-12">
+            <h1 className="text-3xl font-black text-primary font-headline tracking-tight">Tatilfinans</h1>
           </div>
-          <p className="text-xs font-bold text-slate-400 leading-tight">
-            12,000+ gezgin bugün<br />biriktirmeye başladı.
-          </p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="space-y-8"
+          >
+            <h2 className="text-5xl lg:text-7xl font-black text-slate-900 font-headline leading-[1.1] tracking-tight">
+              Hayalindeki Tatil, <br/>
+              <span className="text-primary">Akıllı Finansmanla</span> <br/>
+              Gerçek Olsun.
+            </h2>
+            
+            <p className="text-lg md:text-xl text-slate-500 font-medium leading-relaxed max-w-md">
+              Yapay zeka destekli tasarruf planları ve esnek ödeme seçenekleriyle dünyayı keşfetmeye bugün başla.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 pt-4">
+              <button 
+                onClick={onStart}
+                className="px-10 py-6 bg-primary text-white rounded-[2rem] font-black uppercase tracking-widest text-sm shadow-2xl shadow-primary/30 hover:scale-105 active:scale-95 transition-all cursor-pointer flex items-center justify-center gap-3"
+              >
+                Hemen Başla
+                <ArrowRight size={20} />
+              </button>
+              <button 
+                onClick={onLogin}
+                className="px-10 py-6 bg-slate-50 text-slate-600 rounded-[2rem] font-black uppercase tracking-widest text-sm border border-slate-100 hover:bg-slate-100 transition-all cursor-pointer"
+              >
+                Giriş Yap
+              </button>
+            </div>
+          </motion.div>
+
+          <div className="mt-20 grid grid-cols-3 gap-8 border-t border-slate-50 pt-12">
+            <StatItem label="Mutlu Gezgin" value="50k+" />
+            <StatItem label="Destinasyon" value="120+" />
+            <StatItem label="Tasarruf" value="₺12M+" />
+          </div>
         </div>
-      </section>
+      </div>
+    </div>
+  );
+}
+
+function StatItem({ label, value }: { label: string, value: string }) {
+  return (
+    <div>
+      <p className="text-2xl font-black text-slate-900 font-headline">{value}</p>
+      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">{label}</p>
     </div>
   );
 }
